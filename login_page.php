@@ -18,6 +18,8 @@
     </form>
 
     <p>This is a paragraph for testing staged area</p>
+
+    <p>Stash part 2, this should have index 1 </p>
     
 </body>
 </html>
