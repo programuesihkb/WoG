@@ -19,7 +19,7 @@
 
     <p>This is a paragraph for testing staged area</p>
 
-    <p>Stash part 2, this should have index 1 </p>
+    <P>This is the final login page</P>
     
 </body>
-</html>
+</html> 
