@@ -3,8 +3,12 @@
     <body>
         <?php include "header.php"?>
 
-        <button>Logout</button>
+        <form action="logout.php" method="post">
+        <button type="submit" name="logout">Logout</button>
+        </form>
+        
         <button>Change password</button>
+        
         <?php include "footer.php"?>
     </body>
 </html>
