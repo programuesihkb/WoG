@@ -34,15 +34,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($connection, $username);
     $password = mysqli_real_escape_string($connection, $password);
     
-    $query = 'SELECT * FROM users WHERE username = ?';
+    $query = 'SELECT * FROM user WHERE username = ?';
     $stmt = mysqli_prepare($connection, $query);
+    if (!$stmt) {
+        die('Error: ' . mysqli_error($connection)); // Handle the error appropriately
+    }
     mysqli_stmt_bind_param($stmt, 's', $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $user = mysqli_fetch_assoc($result);
 
    
-    if ($user && $password === $user['passwords']) {
+    if ($user && $password === $user['password']) {
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = $user;
         session_regenerate_id();
