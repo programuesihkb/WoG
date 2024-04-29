@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include("dbconnection.php");
+	include("database-connection.php");
 	if(isset($_POST['Submit']))
 		{
 			$oldpass=md5($_POST['opwd']);
