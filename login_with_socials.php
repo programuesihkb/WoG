@@ -64,7 +64,6 @@
 
                     <h3 class="mb-5">Sign in</h3>
 
-
                     <!-- Sign in with Google-->
                     <div id="g_id_onload"
                         data-client_id="92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com"
@@ -92,7 +91,7 @@
 </section>
 
 
-<script>
+<!-- <script>
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -107,7 +106,7 @@
         console.log('User signed out.');
         });
     }
-</script>    
+</script>     -->
 
 
 
