@@ -72,7 +72,6 @@
                         data-callback="handleCredentialResponse"
                         data-auto_prompt="true">
                     </div>
-
                     <div class="g-signin2"
                         data-type="standard"
                         data-shape="rectangular"
