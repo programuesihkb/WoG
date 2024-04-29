@@ -41,8 +41,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     var data = new URLSearchParams();
     data.append('username', username);
     data.append('password', password);
-
-    console.log(data.toString());
     axios.post('login.php', data)
         .then(function (response) {
             var data = response.data;
