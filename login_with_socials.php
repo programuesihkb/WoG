@@ -9,6 +9,51 @@
     <title>sign Up Wog</title>
 </head>
 <body>
+    <script>
+        //GOOGLE
+        // Credential response handler function
+        function handleCredentialResponse(response){
+            // Post JWT token to server-side
+            fetch("login.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ request_type:'user_auth', credential: response.credential }),
+            })
+            .then(response => response.json())
+            .catch(console.error);
+        }
+
+        // Sign out the user
+        function signOut(authID) {
+            document.getElementsByClassName("pro-data")[0].innerHTML = '';
+            document.querySelector("#btnWrap").classList.remove("hidden");
+            document.querySelector(".pro-data").classList.add("hidden");
+        }    
+
+
+        // <!--Facebook SDK for Javascript -->
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '1342911753070366',
+            xfbml      : true,
+            version    : 'v19.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // <!-- facebook login logic -- missing
+    </script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0&appId=1342911753070366" nonce="lCd6mLTw"></script>
+
 
     <section class="vh-100" style="background-color: #508bfc;">
         <div class="container py-5 h-100">
@@ -19,51 +64,28 @@
 
                     <h3 class="mb-5">Sign in</h3>
 
-                    <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                    <label class="form-label" for="typeEmailX-2">Email</label>
-                    </div>
-
-                    <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                    <label class="form-label" for="typePasswordX-2">Password</label>
-                    </div>
-
-                    <!-- Checkbox -->
-                    <div class="form-check d-flex justify-content-start mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-                    <label class="form-check-label" for="form1Example3"> Remember password </label>
-                    </div>
-
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-
-                    <hr class="my-4">
 
                     <!-- Sign in with Google-->
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <a href="#" onclick="signOut();">Sign out</a>
+                    <div id="g_id_onload"
+                        data-client_id="92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com"
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="handleCredentialResponse"
+                        data-auto_prompt="true">
+                    </div>
 
-                    <!-- <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary g-signin2" style="background-color: #dd4b39;"
-                    type="submit" data-onsuccess="onSignIn"> Sign in with google</button>  -->
+                    <div class="g-signin2"
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme="outline"
+                        data-text="signin_with"
+                        data-size="large"
+                        data-logo_alignment="left">
+                    </div>
 
-                    <!-- Sign in with Facebook-->
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-primary mb-2 fb-login-button" style="background-color: #3b5998;"
-                        type="submit" onclick="FB.login(function(response) {
-                            if (response.authResponse) {
-                                console.log('Welcome! Fetching your information.... ');
-                                FB.api('/me', {fields: 'name, email'}, function(response) {
-                                    document.getElementById('profile').innerHTML = 'Good to see you, ' + response.name + '. Your email address is ' + response.email;
-                                });
-                            } else {
-                                console.log('User cancelled login or did not fully authorize.');
-                            }
-                        });"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
-                    
-                    <!-- <div id="fb-root"></div>
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0&appId=1342911753070366" nonce="veS40ESW"></script>
-                    <div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="false" data-use-continue-as="false"></div>
-                </div> -->
-                </div>
+
+                <div class="fb-login-button" data-width="200" data-size="" data-button-type="" data-layout="" data-auto-logout-link="true" data-use-continue-as="false"></div>                
+            </div>
             </div>
             </div>
         </div>
@@ -85,39 +107,12 @@
         console.log('User signed out.');
         });
     }
-
-
 </script>    
 
 
 
 
-<script>
-        // <!-- Add the Facebook SDK for Javascript -->
-  
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk')
-        );
 
-
-        window.fbAsyncInit = function() {
-            // Initialize the SDK with your app and the Graph API version for your app
-            FB.init({
-                appId: '1342911753070366',
-                xfbml: true,
-                version: 'v19.0'
-            });
-            FB.AppEvents.logPageView();
-        };
-
-    
-
-      </script>
 <!-- google login -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
