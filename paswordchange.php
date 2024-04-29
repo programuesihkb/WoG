@@ -10,34 +10,23 @@ if(isset($_SESSION['login']) && isset($_POST['Submit'])) {
     
     // Check if the database connection is established
     if ($con) {
-        $stmt = $con->prepare("SELECT password FROM userinfo WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-
-        if ($row) {
-            if (md5($_POST['opwd']) === $row['password']) {
-                $update_stmt = $con->prepare("UPDATE userinfo SET password = ? WHERE email = ?");
-                $update_stmt->bind_param("ss", $newpassword, $email);
-                if ($update_stmt->execute()) {
-                    $_SESSION['msg1'] = "Password Changed Successfully !!";
-                    header("Location: login_page.html"); // Redirect to login_page.html
-                    exit();
-                } else {
-                    $_SESSION['msg1'] = "Error updating password.";
-                }
-            } else {
-                $_SESSION['msg1'] = "Old Password does not match !!";
-            }
+        // Update password query
+        $update_stmt = $con->prepare("UPDATE User SET password = ? WHERE email = ?");
+        $update_stmt->bind_param("ss", $newpassword, $email);
+        
+        // Execute update query
+        if ($update_stmt->execute()) {
+            $_SESSION['msg1'] = "Password Changed Successfully !!";
+            // Redirect to a confirmation page
+            header("Location: login_page.html");
+            exit();
         } else {
-            $_SESSION['msg1'] = "User not found.";
+            $_SESSION['msg1'] = "Error updating password: " . $update_stmt->error;
         }
 
-        $stmt->close();
         $update_stmt->close();
     } else {
-        $_SESSION['msg1'] = "Database connection error.";
+        $_SESSION['msg1'] = "Database connection error: " . $con->connect_error;
     }
 
     $con->close();
