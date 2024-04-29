@@ -29,15 +29,11 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Pricing</a>
       </li> -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#" >Bored?</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+      <li class="nav-item ">
+        <a class="nav-link" href="profile.php" >Profile</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="games.html" >Bored?</a>
       </li>
     </ul>
   </div>
