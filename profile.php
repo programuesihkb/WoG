@@ -6,8 +6,8 @@
         <form action="logout.php" method="post">
         <button type="submit" name="logout">Logout</button>
         </form>
-        
-        <button>Change password</button>
+        <a href="paswordchange.html">
+        <button >Change password</button></a>
         
         <?php include "footer.php"?>
     </body>
