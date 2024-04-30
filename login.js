@@ -42,7 +42,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     data.append('password', password);
 
     console.log(data.toString());
-    axios.post('login.php', data)
+    axios.post('pdo_login.php', data)
         .then(function (response) {
             var data = response.data;
             if (data.success) {

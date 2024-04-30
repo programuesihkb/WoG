@@ -6,7 +6,7 @@ session_start();
 include "database-connection.php";
 
 
-$maxLoginAttempts = 3;
+$maxLoginAttempts = 5;
 
 
 $lockoutDuration = 15 * 60;
@@ -22,8 +22,8 @@ if (isset($_SESSION['lockout_end_time']) && $_SESSION['lockout_end_time'] > time
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $username = isset($_POST['username']) ? trim($_POST['username']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
     
     if ($username === '' || $password === '') {
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = mysqli_fetch_assoc($result);
 
    
-    if ($user && $password === $user['passwords']) {
+    if ($user && $password === $user['password']) {
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = $user;
         session_regenerate_id();
