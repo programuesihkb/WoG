@@ -3,17 +3,31 @@ const wordDisplay = document.querySelector(".word-display");
 const guessesText = document.querySelector(".guesses-text b");
 const keyboardDiv = document.querySelector(".keyboard");
 const gameModal = document.querySelector(".game-modal");
+const playAgainBtn = document.querySelector(".play-again");
 
-let currentWord,correctLetters=[], wrongGuessCount = 0;
+let currentWord,correctLetters, wrongGuessCount;
 const maxGuesses = 6;
 
-const getRandomWord = () => {
+const resetGame = () => {
 
+    correctLetters=[];
+    wrongGuessCount=0;
+    hangmanImage.src = `images/hangman-${wrongGuessCount}.svg`;
+    guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+    keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled=false);
+    wordDisplay.innerHTML = currentWord.split("").map(() => '<li class="letter"></li>').join("");
+    gameModal.classList.remove("show");
+}
+
+const getRandomWord = () => {
+    console.log("getRandomWord function is called");
     const{ word,hint} = wordList[Math.floor(Math.random()*wordList.length)];
     currentWord = word;
     console.log(word);
+    console.log("getRandomWord function is called");
     document.querySelector(".hint-text b").innerText = hint;
-    wordDisplay.innerHTML = word.split("").map(() => '<li class="letter"></li>').join("");
+    resetGame();
+   
 }
 
 const gameOver = (isVictory) => {
@@ -34,8 +48,6 @@ const initGame = (button,clickedLetter) => {
     if(currentWord.includes(clickedLetter)){
         
         [...currentWord].forEach((letter,index) => {
-
-            
 
             if(letter === clickedLetter){
                
@@ -58,7 +70,6 @@ const initGame = (button,clickedLetter) => {
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
-getRandomWord();
 for (let i = 97; i <= 122; i++) {
     const button = document.createElement("button");
     button.innerText = String.fromCharCode(i);
@@ -66,3 +77,6 @@ for (let i = 97; i <= 122; i++) {
     button.addEventListener("click",e => initGame(e.target,String.fromCharCode(i)));
 }
 
+getRandomWord();
+
+playAgainBtn.addEventListener("click",getRandomWord);
