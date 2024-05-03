@@ -20,7 +20,6 @@ const resetGame = () => {
 }
 
 const getRandomWord = () => {
-    console.log("getRandomWord function is called");
     const{ word,hint} = wordList[Math.floor(Math.random()*wordList.length)];
     currentWord = word;
     console.log(word);
@@ -70,13 +69,13 @@ const initGame = (button,clickedLetter) => {
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
+getRandomWord();
+
+playAgainBtn.addEventListener("click",getRandomWord);
+
 for (let i = 97; i <= 122; i++) {
     const button = document.createElement("button");
     button.innerText = String.fromCharCode(i);
     keyboardDiv.appendChild(button);
     button.addEventListener("click",e => initGame(e.target,String.fromCharCode(i)));
 }
-
-getRandomWord();
-
-playAgainBtn.addEventListener("click",getRandomWord);
