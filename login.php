@@ -1,31 +1,68 @@
 <?php
 
+session_start();
+
+
 include "database-connection.php";
 
-header('Content-Type: application/json');
-error_reporting(0);
 
-$username = isset($_POST['username']) ? trim($_POST['username']) : '';
-$password = isset($_POST['password']) ? trim($_POST['password']) : '';
+$maxLoginAttempts = 3;
 
-if ($username === '' || $password === '') {
-    echo json_encode(['success' => false, 'message' => 'Username or password cannot be empty']);
+
+$lockoutDuration = 15 * 60;
+
+
+if (isset($_SESSION['lockout_end_time']) && $_SESSION['lockout_end_time'] > time()) {
+   
+    $remainingLockoutTime = $_SESSION['lockout_end_time'] - time();
+    echo json_encode(['success' => false, 'message' => "You have exceeded the maximum number of login attempts. Please try again after $remainingLockoutTime seconds."]);
     exit();
 }
 
-$username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
-$password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
 
-if ($username === 'user_test' && $password === '12345') {
-    session_start();
-    $_SESSION["user"] = $username;
-    session_regenerate_id();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-    echo json_encode(['success' => true]);
-    exit();
-} else {
-    echo json_encode(['success' => false, 'message' => 'Wrong username or password']);
-    exit();
+    
+    if ($username === '' || $password === '') {
+        echo json_encode(['success' => false, 'message' => 'Username or password cannot be empty']);
+        exit();
+    }
+      
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+    
+    $query = 'SELECT * FROM user WHERE username = ?';
+    $stmt = mysqli_prepare($connection, $query);
+    if (!$stmt) {
+        die('Error: ' . mysqli_error($connection)); // Handle the error appropriately
+    }
+    mysqli_stmt_bind_param($stmt, 's', $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
+
+   
+    if ($user && $password === $user['password']) {
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['user'] = $user;
+        session_regenerate_id();
+        echo json_encode(['success' => true]);
+        exit();
+    } else {
+        
+        $_SESSION['login_attempts'] = isset($_SESSION['login_attempts']) ? $_SESSION['login_attempts'] + 1 : 1;
+        if ($_SESSION['login_attempts'] >= $maxLoginAttempts) {
+            $_SESSION['lockout_end_time'] = time() + $lockoutDuration;
+            echo json_encode(['success' => false, 'message' => 'You have exceeded the maximum number of login attempts']);
+            exit();
+        }
+        echo json_encode(['success' => false, 'message' => 'Wrong username or password']);
+        exit();
+    }
 }
 
+mysqli_close($connection);
 ?>

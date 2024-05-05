@@ -1,0 +1,11 @@
+.keyboard button:disabled{
+
+    opacity: 0.6;
+    pointer-events: none;
+}
+.game-modal.show{
+
+    opacity: 1 !important ;
+    pointer-events: auto !important;
+    
+}

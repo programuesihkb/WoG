@@ -8,6 +8,6 @@ if($error != null){
   $output = ["success" => false, "message" => "Unable to connect to database"];
   echo json_encode($output);
   exit();    
-}
+} 
     
 ?>
