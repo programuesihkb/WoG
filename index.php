@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php include "header.php" ?>
-    <p>Blah blah</p>
+    <?php include "mainBody.php"?>
     <?php include "footer.php" ?>
 </body>
 </html>
