@@ -50,7 +50,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
                 window.location.href = 'index.php';
             } else {
                 displayErrorMessage(data.message);
-                console.log('data: ', data);
             }
         })
         .catch(function (error) {

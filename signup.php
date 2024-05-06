@@ -23,11 +23,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = mysqli_real_escape_string($connection, $password);
     $confirmPassword = mysqli_real_escape_string($connection, $confirmPassword);
 
-    $sql_check_emailAndUsername = "SELECT COUNT(*) AS count FROM user WHERE email = '$email' OR username = '$username'";
-    $result_emailAndUsername = $connection->query($sql_check_emailAndUsername);
-    $result_emailAndUsername_count = $result_emailAndUsername->fetch_assoc();
+    $sql_check_email = "SELECT COUNT(*) AS count FROM user WHERE email = '$email'";
+    $result_email = $connection->query($sql_check_email);
+    $result_email_count = $result_email->fetch_assoc();
 
-    if ($result_emailAndUsername_count['count'] > 0) {
+    if ($result_email_count['count'] > 0) {
+        echo json_encode(['success' => false, 'message' => 'Email already exists']);
+        exit();
+    }
+
+    $sql_check_username = "SELECT COUNT(*) AS count FROM user WHERE username = '$username'";
+    $result_username = $connection->query($sql_check_username);
+    $result_username_count = $result_username->fetch_assoc();
+    
+    if ($result_username_count['count'] > 0) {
         echo json_encode(['success' => false, 'message' => 'Email or username already exists']);
         exit();
     }
