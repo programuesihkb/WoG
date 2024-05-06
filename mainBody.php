@@ -21,13 +21,14 @@
         border: 2px solid blue;
       }
       h5 {
-        color: white;
+        color: white /*!important*/;
         font-size: 18px;
         font-weight: bold;
         font-family: Arial, sans-serif;
         text-align: left;
         opacity: 0.8;
       }
+    
     </style>
 </head>
 <body>
@@ -35,7 +36,6 @@
         <div class="row">
             <?php
         
-            // Fetch posts from the Post table along with multimedia data
             $sqlPosts = "SELECT p.*, 
             m.media_data, 
             GROUP_CONCAT(g.genre_name) AS genre_names, 
@@ -48,16 +48,16 @@
      GROUP BY p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username";
         $resultPosts = mysqli_query($connection, $sqlPosts);
 
-        // Check if query execution was successful
+ 
 if (!$resultPosts) {
     die("Error in SQL query: " . mysqli_error($connection));
 }
-        // Loop through each fetched post and display them
+
         while ($row = mysqli_fetch_assoc($resultPosts)) {
             echo "<div class='col-md-4'>";
             echo "<a href='post_detail.php?post_id=" . $row['post_id'] . "'>";
             echo "<div class='thumbnail'>";
-            // Display post image if available
+
             if (!empty($row['media_data'])) {
                 echo "<img src='" . $row['media_data'] . "' alt='Post Image'>";
             } else {

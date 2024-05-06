@@ -18,22 +18,35 @@
             margin: 0;
         }
         .note {
-            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.5); 
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-            max-width: 300px; /* Limit the maximum width of the note */
-            text-align: center; /* Center align the content */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            max-width: 300px; 
+            text-align: center; 
+            margin: 10px;
         }
         .game-image {
-            max-width: 100%; /* Ensure the image doesn't exceed its container */
-            height: auto; /* Maintain aspect ratio */
-            margin-bottom: 10px; /* Add space between the image and button */
+            max-width: 100%; 
+            height: auto; 
+            margin-bottom: 10px; 
         }
         .game-container {
             display: flex;
-            flex-direction: column; /* Arrange items vertically */
-            align-items: center; /* Center align items horizontally */
+            flex-direction: column; 
+            align-items: center; 
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff; 
+            color: white; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3; 
         }
     </style>
 </head>

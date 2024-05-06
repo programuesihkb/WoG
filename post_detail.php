@@ -12,10 +12,9 @@
     
             include "database-connection.php";
 
-            // Get the post_id from the URL parameter
+   
             $post_id = $_GET['post_id'];
 
-            // Fetch the post details from the database
             $sqlPostDetail = "SELECT p.*, 
             m.media_data, 
             GROUP_CONCAT(g.genre_name) AS genre_names, 
@@ -33,16 +32,15 @@
                 die("Error in SQL query: " . mysqli_error($connection));
             }
 
-            // Fetch post details from the result
+
             $row = mysqli_fetch_assoc($resultPostDetail);
 
-            // Output post details
             echo "<h2>" . $row['post_name'] . "</h2>";
             echo "<p><strong>Published by:</strong> " . $row['published_by'] . "</p>";
             echo "<p><strong>Published on:</strong> " . $row['post_date'] . "</p>";
             echo "<p><strong>Genre:</strong> " . $row['genre_names'] . "</p>";
             echo "<p><strong>Description:</strong> " . $row['description'] . "</p>";
-            // Output multimedia data if available
+        
             if (!empty($row['media_data'])) {
                 echo "<img src='" . $row['media_data'] . "' alt='Post Image'>";
             } else {
