@@ -4,24 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+        background-image: url("imagesForWebsite/b3.jpg");
+        background-size: contain;
+        background-position: top;
+        background-attachment: fixed;
+        filter: blur(0.5);
+      }
+      .container{
+        padding-top: 56px;
+      }
+      img {
+        width: 250px; 
+        height: auto; 
+        border: 2px solid blue;
+      }
+      h5 {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        text-align: left;
+        opacity: 0.8;
+      }
+    </style>
 </head>
 <body>
 <div class="container">
         <div class="row">
             <?php
-            // // Include database connection code
-            // include "database-include.php";
-
-            // // Connect to the database
-            // $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
-            // // Check for connection errors
-            // $error = mysqli_connect_error();
-            // if ($error != null) {
-            //     $output = "<p>Unable to connect to database<p>" . $error;
-            //     exit($output);
-            // }
-
+        
             // Fetch posts from the Post table along with multimedia data
             $sqlPosts = "SELECT p.*, 
             m.media_data, 
@@ -51,7 +64,7 @@ if (!$resultPosts) {
                 echo "<p>No image available</p>";
             }
             echo "<div class='caption'>";
-            echo "<h3>" . $row['post_name'] . "</h3>";
+            echo "<h5>" . $row['post_name'] . "</h5>";
             echo "</div></div></a></div>";
         }
             ?>
