@@ -13,6 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="divider.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
       body {
         margin: 0;
@@ -48,20 +49,29 @@
   <body>
     <script>
       //GOOGLE
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id: '92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com',
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.prompt();
+      };
+
       // Credential response handler function
       function handleCredentialResponse(response) {
-        // Post JWT token to server-side
-        fetch("login.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            request_type: "user_auth",
+    // Post JWT token and user data to server-side
+    fetch("login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            request_type: "google_user_auth",
             credential: response.credential,
-          }),
+            user_data: response.getBasicProfile() // Get user data
+        }),
         })
-          .then((response) => response.json())
-          .catch(console.error);
-      }
+        .then((response) => response.json())
+        .catch(console.error);
+    }
 
       // Sign out the user
       function signOut(authID) {
@@ -92,7 +102,7 @@
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
 
-      // <!-- facebook login logic -- missing
+
     </script>
     <div id="fb-root"></div>
     <script
@@ -181,33 +191,32 @@
 
             <!-- Sign in with Google-->
             <div style="display: flex; flex-direction: row">
-              <div
-                id="g_id_onload"
-                data-client_id="92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleCredentialResponse"
-                data-auto_prompt="true"
-              ></div>
-              <div
-                class="g-signin2"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="outline"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left"
-              ></div>
+              <!-- Sign in with Google-->
+              <div id="g_id_onload"
+                  data-client_id="92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com"
+                  data-context="signup"
+                  data-ux_mode="popup"
+                  data-callback="handleCredentialResponse"
+                  data-auto_select="true"
+                  data-itp_support="true">
+              </div>
+
+              <div class="g_id_signin"
+                  data-type="standard"
+                  data-shape="pill"
+                  data-theme="outline"
+                  data-text="continue_with"
+                  data-size="large"
+                  data-logo_alignment="left">
+              </div>
               <!-- Sign in with Facebook-->
               <div
-                class="fb-login-button"
+                class="fb-login-button d-none"
                 data-width="200"
-                data-size=""
-                data-button-type=""
-                data-layout=""
                 data-auto-logout-link="true"
-                data-use-continue-as="false"
-              ></div>
+                data-use-continue-as="false">
+              </div>
+              
             </div>
           </div>
         </div>
