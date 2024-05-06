@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = 'SELECT * FROM user WHERE username = ?';
     $stmt = mysqli_prepare($connection, $query);
     if (!$stmt) {
-        die('Error: ' . mysqli_error($connection)); // Handle the error appropriately
+        die('Error: ' . mysqli_error($connection)); 
     }
     mysqli_stmt_bind_param($stmt, 's', $username);
     mysqli_stmt_execute($stmt);
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = mysqli_fetch_assoc($result);
 
    
-    if ($user && $password === $user['password']) {
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = $user;
         session_regenerate_id();
