@@ -23,12 +23,16 @@
             // }
 
             // Fetch posts from the Post table along with multimedia data
-            $sqlPosts = "SELECT p.*, m.media_data, GROUP_CONCAT(g.genre_name) AS genre_names 
-            FROM Post p 
-            LEFT JOIN Multimedia m ON p.post_id = m.post_id
-            LEFT JOIN Post_Genre pg ON p.post_id = pg.post_id
-            LEFT JOIN Genre g ON pg.genre_id = g.genre_id
-            GROUP BY p.post_id, m.media_data";
+            $sqlPosts = "SELECT p.*, 
+            m.media_data, 
+            GROUP_CONCAT(g.genre_name) AS genre_names, 
+            u.username AS published_by 
+     FROM Post p 
+     LEFT JOIN Multimedia m ON p.post_id = m.post_id
+     LEFT JOIN Post_Genre pg ON p.post_id = pg.post_id
+     LEFT JOIN Genre g ON pg.genre_id = g.genre_id
+     LEFT JOIN User u ON p.user_id = u.user_id
+     GROUP BY p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username";
         $resultPosts = mysqli_query($connection, $sqlPosts);
 
         // Check if query execution was successful
