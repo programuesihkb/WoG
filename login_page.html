@@ -125,6 +125,11 @@
       </div>
     </nav>
 
+    <div class="welcome-text">
+      <h1>Welcome to</h1>
+      <h1>Nexus!</h1>
+    </div>
+
     <div
       class="modal fade"
       id="signInModal"
@@ -282,15 +287,18 @@
               />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <p id="responseMessage" class="error"></p>
+            <div
+                id="errorAlert2"
+                class="alert alert-danger d-none"
+                role="alert"
+                style="padding: 5px; margin-top: 10px"
+              >
+              <i class="bi bi-exclamation-circle-fill"></i>
+              <p id="responseMessage2" class="error"></p>
+            </div>
           </form>
         </div>
       </div>
-    </div>
-
-    <div class="welcome-text">
-      <h1>Welcome to</h1>
-      <h1>Nexus!</h1>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

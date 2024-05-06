@@ -6,7 +6,6 @@ function displayErrorMessage(message) {
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log("are we here???");
 
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
