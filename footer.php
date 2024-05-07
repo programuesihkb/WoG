@@ -8,44 +8,16 @@
   
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">
 
-  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
- 
-    <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
-    </div>
+    <section style="background-color: rgba(0, 0, 0, 0.85);">
 
-    <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="https://github.com/programuesihkb/WoG" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-
-  </section>
- 
-  <section class="">
     <div class="container text-center text-md-start mt-5">
       
-      <div class="row mt-3">
+      <div class="row mt-1">
        
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
          
           <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Company name
+            <i class="fas fa-gem me-3"></i>Nexux Team
           </h6>
           <p>
             This web page was brought to you nga Nacut,empowering innovation and creativity in every digital experience.
@@ -53,25 +25,6 @@
           </p>
         </div>
        
-
-        <!-- <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <h6 class="text-uppercase fw-bold mb-4">
-            Useful links
-          </h6>
-          <p>
-            <a href="#!" class="text-reset">Pricing</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Settings</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Orders</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Help</a>
-          </p>
-        </div> -->
-     
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
@@ -80,7 +33,13 @@
             <i class="fas fa-envelope me-3"></i>
             LideriSuprem@gmail.com
           </p>
-          <p><i class="fas fa-phone me-3"></i> + 355 67 01 02 105</p>
+          <p><i class="fas fa-phone me-3"></i> + 355 68...tjerat i di vete</p>
+          <div class="d-flex flex-row justify-content-center">
+            <span>Git repository: </span>
+            <a href="https://github.com/programuesihkb/WoG" class="px-3 text-reset">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
         </div>
 
       </div>
@@ -89,9 +48,9 @@
   </section>
 
 
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.95);">
     © 2024 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Nacut</a>
+    <a class="text-reset fw-bold" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Nacut Team</a>
   </div>
 
 </footer>
@@ -99,7 +58,6 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </body>
 </html>

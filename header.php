@@ -12,23 +12,27 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="profile.php" >Profile</a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="Games/Gaming.php" >Bored?</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.75);">
+  <div class="d-flex mx-4">
+
+    <img class="me-4" style="width:150px; height:max-content; border-radius: 100px" src="./imagesForWebsite/nexus_team.jpg" alt="logo" >
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="profile.php" >Profile</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="Games/Gaming.php" >Bored?</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
