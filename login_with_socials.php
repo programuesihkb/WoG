@@ -9,6 +9,7 @@
     <title>sign Up Wog</title>
 </head>
 <body>
+    
     <script>
         //GOOGLE
         // Credential response handler function

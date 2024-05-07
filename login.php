@@ -21,6 +21,38 @@ if (isset($_SESSION['lockout_end_time']) && $_SESSION['lockout_end_time'] > time
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    // Elions test code
+    if ($_POST['request_type'] == 'google_user_auth') {
+        $user_data = $_POST['user_data'];
+        $username = $user_data['name'];
+        $email = $user_data['email'];
+        $profile_picture = $user_data['imageUrl'];
+
+        // Check if user already exists
+        $query = 'SELECT * FROM user WHERE username = ?';
+        $stmt = mysqli_prepare($connection, $query);
+        mysqli_stmt_bind_param($stmt, 's', $username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $user = mysqli_fetch_assoc($result);
+
+        if (!$user) {
+            // Insert new user into database
+            $query = 'INSERT INTO user (username, email, profile_picture) VALUES (?, ?, ?)';
+            $stmt = mysqli_prepare($connection, $query);
+            mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $profile_picture);
+            mysqli_stmt_execute($stmt);
+        }
+
+        $_SESSION['user'] = $user_data;
+        session_regenerate_id();
+        echo json_encode(['success' => true]);
+        exit();
+    }
+    //End Elion test code
+
     
     $username = isset($_POST['username']) ? $_POST['username'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
