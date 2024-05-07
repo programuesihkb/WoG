@@ -59,19 +59,21 @@
 
       // Credential response handler function
       function handleCredentialResponse(response) {
-    // Post JWT token and user data to server-side
-    fetch("login.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            request_type: "google_user_auth",
-            credential: response.credential,
-            user_data: response.getBasicProfile() // Get user data
-        }),
+        // Post JWT token and user data to server-side
+        fetch("login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                request_type: "google_user_auth",
+                credential: response.credential,
+                //user_data: response.getBasicProfile() // Get user data
+            }),
         })
         .then((response) => response.json())
         .catch(console.error);
-    }
+
+      window.location.href = './index.php';    
+      }
 
       // Sign out the user
       function signOut(authID) {
@@ -105,13 +107,7 @@
 
     </script>
     <div id="fb-root"></div>
-    <script
-      async
-      defer
-      crossorigin="anonymous"
-      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0&appId=1342911753070366"
-      nonce="lCd6mLTw"
-    ></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0" nonce="HcLE143A"></script>
 
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
@@ -189,8 +185,8 @@
               <span class="divider-text">Login with</span>
             </div>
 
-            <!-- Sign in with Google-->
-            <div style="display: flex; flex-direction: row">
+            <!-- Sign in with Socials-->
+            <div class="d-flex flex-row justify-content-around">
               <!-- Sign in with Google-->
               <div id="g_id_onload"
                   data-client_id="92519646988-f1tp6j004r1gcdi9a42857ci7hbpv96g.apps.googleusercontent.com"
@@ -210,14 +206,17 @@
                   data-logo_alignment="left">
               </div>
               <!-- Sign in with Facebook-->
-              <div
-                class="fb-login-button d-none"
-                data-width="200"
-                data-auto-logout-link="true"
-                data-use-continue-as="false">
+              <div 
+                class="fb-login-button" 
+                data-width="450px" 
+                data-size="" 
+                data-button-type="" 
+                data-layout="" 
+                data-auto-logout-link="true" 
+                data-use-continue-as="true">
               </div>
-              
             </div>
+
           </div>
         </div>
       </div>
