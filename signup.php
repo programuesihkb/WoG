@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql_add_user =  "INSERT INTO user (username, email, password, status, registration_date, date_of_birth, profile_picture) VALUES ('$username', '$email', '$hash', true, NOW(), '$dateOfBirth', '')";
     
     if(mysqli_query($connection, $sql_add_user)) {
+        $_SESSION['user'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
 

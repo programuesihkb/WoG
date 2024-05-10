@@ -79,7 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['login_attempts'] = 0;
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = true;
+        $_SESSION['username'] = $username;
+        $_SESSION['email'] = $email;
         session_regenerate_id();
         echo json_encode(['success' => true]);
         exit();
