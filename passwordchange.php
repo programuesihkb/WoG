@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $json = file_get_contents('php://input');
     $formData = json_decode($json, true);
 
-    $username = mysqli_real_escape_string($connection, $_SESSION['user']['username']);
+    $username = mysqli_real_escape_string($connection, $_SESSION['username']);
     $oldpass = mysqli_real_escape_string($connection, $formData['opwd']);
     $newpassword = mysqli_real_escape_string($connection, $formData['npwd']);
     $confirmpassword = mysqli_real_escape_string($connection, $formData['cpwd']);
