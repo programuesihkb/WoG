@@ -50,7 +50,65 @@
   <div class="container">
     <div class="row row-cols-3 justify-content-between"> 
         <?php
+        if (!isset($connection)) {
+          // Include the database connection file
+          include 'database-connection.php';
+      }
           function getPosts($connection) {
+            if (isset($_GET['category']) && !empty($_GET['category'])) {
+              // Filter by category
+              $category = $_GET['category'];
+              $sqlPosts = "
+              SELECT 
+    p.*, 
+    m.media_data, 
+    GROUP_CONCAT(g.genre_name) AS genre_names, 
+    u.username AS published_by 
+FROM 
+    Post p 
+LEFT JOIN 
+    Multimedia m ON p.post_id = m.post_id
+LEFT JOIN 
+    Post_Genre pg ON p.post_id = pg.post_id
+LEFT JOIN 
+    Genre g ON pg.genre_id = g.genre_id
+LEFT JOIN 
+    User u ON p.user_id = u.user_id
+GROUP BY 
+    p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
+HAVING 
+    genre_names LIKE '%Action%';
+
+          
+        ";
+       
+
+          } elseif (isset($_GET['creator']) && !empty($_GET['creator'])) {
+              // Filter by creator name
+              $creator = $_GET['creator'];
+              $sqlPosts = "
+              SELECT 
+            p.*, 
+            m.media_data, 
+            GROUP_CONCAT(g.genre_name) AS genre_names, 
+            u.username AS published_by 
+        FROM 
+            Post p 
+        LEFT JOIN 
+            Multimedia m ON p.post_id = m.post_id
+        LEFT JOIN 
+            Post_Genre pg ON p.post_id = pg.post_id
+        LEFT JOIN 
+            Genre g ON pg.genre_id = g.genre_id
+        LEFT JOIN 
+            User u ON p.user_id = u.user_id
+        WHERE 
+            u.username = '$creator'  -- Filter posts by creator's username
+        GROUP BY 
+            p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
+              ";
+          } else {
+              // No search criteria provided, fetch all posts
               $sqlPosts = "
                   SELECT p.*, 
                       m.media_data, 
@@ -63,6 +121,7 @@
                   LEFT JOIN User u ON p.user_id = u.user_id
                   GROUP BY p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
               ";
+          }
               $resultPosts = mysqli_query($connection, $sqlPosts);
 
               if (!$resultPosts) {
