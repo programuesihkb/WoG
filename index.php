@@ -6,8 +6,8 @@
     <title>WoG</title>
 </head>
 <body>
-    <?php include "header.php" ?>
+    
     <?php include "mainBody.php"?>
-    <?php include "footer.php" ?>
+    
 </body>
 </html>

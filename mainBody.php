@@ -44,7 +44,7 @@
       rel="stylesheet"/>
 </head>
 <body>
-
+<?php include "header.php" ?>
 <!-- //component -->
 <section id="section1"> 
   <div class="container">
@@ -55,41 +55,7 @@
           include 'database-connection.php';
       }
           function getPosts($connection) {
-            if (isset($_GET['category']) && !empty($_GET['category'])) {
-              // Filter by category
-              $category = $_GET['category'];
-              $sqlPosts = "
-              SELECT 
-    p.*, 
-    m.media_data, 
-    GROUP_CONCAT(g.genre_name) AS genre_names, 
-    u.username AS published_by 
-FROM 
-    Post p 
-LEFT JOIN 
-    Multimedia m ON p.post_id = m.post_id
-LEFT JOIN 
-    Post_Genre pg ON p.post_id = pg.post_id
-LEFT JOIN 
-    Genre g ON pg.genre_id = g.genre_id
-LEFT JOIN 
-    User u ON p.user_id = u.user_id
-GROUP BY 
-    p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
-HAVING 
-    genre_names LIKE '%Action%';
-
-          
-        ";
-       
-
-          } elseif (isset($_GET['creator']) && !empty($_GET['creator'])) {
-              // Filter by creator name
-              $creator = $_GET['creator'];
-              $sqlPosts = "
-              SELECT 
-            p.*, 
-            m.media_data, 
+            $query="SELECT p.*, m.media_data, 
             GROUP_CONCAT(g.genre_name) AS genre_names, 
             u.username AS published_by 
         FROM 
@@ -102,23 +68,26 @@ HAVING
             Genre g ON pg.genre_id = g.genre_id
         LEFT JOIN 
             User u ON p.user_id = u.user_id
-        WHERE 
-            u.username = '$creator'  -- Filter posts by creator's username
-        GROUP BY 
-            p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
-              ";
+        ";
+            $sqlPosts = $query;
+            if (isset($_GET['category']) && !empty($_GET['category'])) {
+              // Filter by category
+              $category = $_GET['category'];
+              echo "Searched by category: ".$category;
+              $sqlPosts .= " GROUP BY 
+              p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username HAVING genre_names LIKE '%$category%'";
+       
+
+          } elseif (isset($_GET['creator']) && !empty($_GET['creator'])) {
+              // Filter by creator name
+              $creator = $_GET['creator'];
+              echo "Searched by creator name ".$creator;
+              $sqlPosts .= " WHERE u.username = '$creator' GROUP BY 
+              p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username";
           } else {
               // No search criteria provided, fetch all posts
-              $sqlPosts = "
-                  SELECT p.*, 
-                      m.media_data, 
-                      GROUP_CONCAT(g.genre_name) AS genre_names, 
-                      u.username AS published_by 
-                  FROM Post p 
-                  LEFT JOIN Multimedia m ON p.post_id = m.post_id
-                  LEFT JOIN Post_Genre pg ON p.post_id = pg.post_id
-                  LEFT JOIN Genre g ON pg.genre_id = g.genre_id
-                  LEFT JOIN User u ON p.user_id = u.user_id
+              $sqlPosts .= "
+                  
                   GROUP BY p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username
               ";
           }
@@ -163,7 +132,7 @@ HAVING
         </div>
   </div>
 </section>       
-
+<?php include "footer.php" ?>
   <!-- Bootstrap -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

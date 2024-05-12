@@ -68,14 +68,22 @@
 
 function showSearchInput(type) {
   const inputText = document.querySelector(".hide");
-    inputText.classList.toggle("hide");
+    
     var searchInput = document.getElementById('search');
     var dropdownMenuButton = document.querySelector('#dropdownMenuButton');
-    if (type === 'Category' || type === 'Name') {
+    if (type === 'Category' ) {
         // Update the dropdown menu text
+        console.log(type);
         dropdownMenuButton.innerText = 'Search by ' + type;
         searchInput.placeholder = 'Search by ' + type;
-    } else {
+        inputText.classList.toggle("hide");
+    } else if(type === 'Name'){
+       // Update the dropdown menu text
+       console.log(type);
+        dropdownMenuButton.innerText = 'Search by ' + type;
+        searchInput.placeholder = 'Search by Creator ' + type;
+        inputText.classList.toggle("hide");
+    }else {
         alert("Problem");
     }
   }
