@@ -78,10 +78,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    
     if ($user && password_verify($password, $user['password'])) {
+
+        $user_query = "SELECT user_id, email FROM user WHERE username = '$username'";
+        $user_response = mysqli_query($connection, $user_query);
+        $user_row = mysqli_fetch_assoc($result);
+
+        $user_role = "SELECT role_name AS roleName
+                      FROM role
+                      INNER JOIN user_role ON role.role_id = user_role.role_id
+                      INNER JOIN user ON user_role.user_id = user.user_id
+                      WHERE user.user_id = '{$user_row['user_id']}'";
+
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = true;
         $_SESSION['username'] = $username;
-        // $_SESSION['email'] = $email;
+        $_SESSION['email'] = $user_row['email'];
+        $_SESSION['user_role'] = $user_role;
+        
         session_regenerate_id();
         echo json_encode(['success' => true]);
         exit();

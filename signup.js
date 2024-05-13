@@ -1,8 +1,4 @@
-function displayErrorMessage(message) {
-    var responseMessageSignUp = document.getElementById('responseMessage2');
-    responseMessageSignUp.textContent = message;
-    document.getElementById('errorAlert2').classList.remove('d-none');
-}
+import { displayErrorMessage } from "./login";
 
 document.getElementById('signupForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -45,11 +41,10 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
     axios.post('signup.php', data)
         .then(function (response) {
-            var data = response.data;
-            if (data.success) {
+            if (response.status) {
                 window.location.href = 'index.php';
             } else {
-                displayErrorMessage(data.message);
+                displayErrorMessage(response.statusText, 'signUpModal');
             }
         })
         .catch(function (error) {

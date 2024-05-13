@@ -13,28 +13,36 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.75);">
-  <div class="d-flex mx-4">
+  <div class="container-fluid d-flex justify-content-between mx-4">
+    <div class="d-flex">
+      <img class="me-4" style="width:150px; height:max-content; border-radius: 100px" src="./imagesForWebsite/nexus_team.jpg" alt="logo" >
 
-    <img class="me-4" style="width:150px; height:max-content; border-radius: 100px" src="./imagesForWebsite/nexus_team.jpg" alt="logo" >
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="profile.php" >Profile</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="Games/Gaming.php" >Bored?</a>
-        </li>
-      </ul>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="profile.php" >Profile</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="Games/Gaming.php" >Bored?</a>
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <!-- New Button -->
+    <!-- <div>
+      <a class="btn btn-primary" href="shto_postim.php">Shto postim</a>
+    </div> -->
   </div>
 </nav>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,7 +1,19 @@
-function displayErrorMessage(message) {
-    var responseMessage = document.getElementById('responseMessage');
-    responseMessage.textContent = message;
-    document.getElementById('errorAlert').classList.remove('d-none');
+export function displayErrorMessage(message, modalId) {
+    var responseMessage;
+    var errorAlert;
+
+    if (modalId === 'signInModal') {
+        responseMessage = document.getElementById('responseMessage');
+        errorAlert = document.getElementById('errorAlert');
+    } else if (modalId === 'signUpModal') {
+        responseMessage = document.getElementById('responseMessage2');
+        errorAlert = document.getElementById('errorAlert2');
+    }
+
+    if (responseMessage && errorAlert) {
+        responseMessage.textContent = message;
+        errorAlert.classList.remove('d-none');
+    }
 }
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -34,19 +46,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         return;
     }
 
-    console.log(username);
-    console.log(password);
-
     var data = new URLSearchParams();
     data.append('username', username);
     data.append('password', password);
     axios.post('login.php', data)
         .then(function (response) {
-            var data = response.data;
-            if (data.success) {
+            if (response.status) {
                 window.location.href = 'index.php';
             } else {
-                displayErrorMessage(data.message);
+                displayErrorMessage(response.statusText, 'signInModal');
             }
         })
         .catch(function (error) {
