@@ -81,7 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = true;
         $_SESSION['username'] = $username;
-        // $_SESSION['email'] = $email;
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['user_id'] = $user['user_id'];
         session_regenerate_id();
         echo json_encode(['success' => true]);
         exit();
