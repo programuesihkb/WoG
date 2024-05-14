@@ -1,5 +1,6 @@
 <?php
 session_start(); 
+ob_start();
 include "header.php";
 
 if(isset($_GET['post_id'])) {
@@ -42,7 +43,7 @@ if(isset($_GET['post_id'])) {
         if(!$resultUpdatePost) {
             die("Error in SQL query: " . mysqli_error($connection));
         }
-        
+        // ob_end_flush();
         header("Location: profile.php");
         exit();
         
