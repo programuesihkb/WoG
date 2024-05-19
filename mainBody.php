@@ -73,7 +73,7 @@
             if (isset($_GET['category']) && !empty($_GET['category'])) {
               // Filter by category
               $category = $_GET['category'];
-              echo "Searched by category: ".$category;
+              //echo "Searched by category: ".$category;
               $sqlPosts .= " GROUP BY 
               p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username HAVING genre_names LIKE '%$category%'";
        
@@ -81,7 +81,7 @@
           } elseif (isset($_GET['creator']) && !empty($_GET['creator'])) {
               // Filter by creator name
               $creator = $_GET['creator'];
-              echo "Searched by creator name ".$creator;
+              //echo "Searched by creator name ".$creator;
               $sqlPosts .= " WHERE u.username = '$creator' GROUP BY 
               p.post_id, m.media_data, p.post_name, p.description, p.post_date, u.username";
           } else {
