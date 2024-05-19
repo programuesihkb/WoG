@@ -51,7 +51,13 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     data.append('password', password);
     axios.post('login.php', data)
         .then(function (response) {
-            if (response.status) {
+            if (response.data.success) {
+                const user_obj = {
+                    user_name : username,
+                    user_email : response.data.email,
+                    user_role : response.data.user_role,
+                };
+                localStorage.setItem('user', JSON.stringify(user_obj));
                 window.location.href = 'index.php';
             } else {
                 displayErrorMessage(response.statusText, 'signInModal');

@@ -81,22 +81,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user_query = "SELECT user_id, email FROM user WHERE username = '$username'";
         $user_response = mysqli_query($connection, $user_query);
-        $user_row = mysqli_fetch_assoc($result);
+        $user_row = mysqli_fetch_assoc($user_response);
 
-        $user_role = "SELECT role_name AS roleName
+        $user_role_query = "SELECT role_name AS roleName
                       FROM role
                       INNER JOIN user_role ON role.role_id = user_role.role_id
                       INNER JOIN user ON user_role.user_id = user.user_id
                       WHERE user.user_id = '{$user_row['user_id']}'";
+        $user_role_response = mysqli_query($connection, $user_role_query);
+        $user_role_row = mysqli_fetch_assoc($user_role_response);
 
         $_SESSION['login_attempts'] = 0;
         $_SESSION['user'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $user_row['email'];
-        $_SESSION['user_role'] = $user_role;
+        $_SESSION['user_role'] = $user_role_row['roleName'];
         
         session_regenerate_id();
-        echo json_encode(['success' => true]);
+        echo json_encode([
+        'success' => true,
+        'email' => $user_row['email'],
+        'user_role' => $user_role_row['roleName']
+    ]);
         exit();
     } else {
         

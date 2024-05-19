@@ -18,8 +18,7 @@
      
 
 <body>
-
-
+<?php session_start(); ?>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0, 0, 0, 0.75);">
   <div class="container-fluid d-flex justify-content-between mx-4">
     <div class="d-flex">
@@ -57,11 +56,15 @@
         </ul>
       </div>
     </div>
-
-    <!-- New Button -->
-    <!-- <div>
-      <a class="btn btn-primary" href="shto_postim.php">Shto postim</a>
-    </div> -->
+  <?php
+  if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'creator') {
+  ?>
+    <div>
+      <a class="btn btn-primary" href="add_post.php">Create Post</a>
+    </div>
+  <?php
+  }
+  ?>
   </div>
 </nav>
 

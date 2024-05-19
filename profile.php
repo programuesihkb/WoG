@@ -22,7 +22,6 @@
 <body>
 
 <?php 
-session_start(); 
 include "header.php";
 
 if (isset($_SESSION['user']) && isset($_SESSION['username'])) {
@@ -31,7 +30,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['username'])) {
         <div class="row">
             <div class="col-md-6">
                 <h2><i class="bi bi-person-circle profile-icon"></i><?php echo $_SESSION['username']; ?></h2>
-                <form action="logout.php" method="post">
+                <form action="logout.php" method="post" onsubmit="clearLocalStorage()">
                     <button type="submit" name="logout" class="btn btn-logout mb-3"><i class="bi bi-box-arrow-right"></i> Logout</button>
                 </form>
                 <a href="passwordchange.html" class="btn btn-secondary mb-3"><i class="bi bi-key"></i> Change Password</a>
@@ -50,6 +49,11 @@ if (isset($_SESSION['user']) && isset($_SESSION['username'])) {
 include "footer.php"; 
 ?>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function clearLocalStorage() {
+        localStorage.clear();
+    }
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></>
 </body>
 </html>

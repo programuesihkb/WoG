@@ -42,6 +42,12 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     axios.post('signup.php', data)
         .then(function (response) {
             if (response.status) {
+                const user_obj = {
+                    user_name : username,
+                    user_email : email,
+                    user_role : 'user',
+                };
+                localStorage.setItem('user', JSON.stringify(user_obj));
                 window.location.href = 'index.php';
             } else {
                 displayErrorMessage(response.statusText, 'signUpModal');
