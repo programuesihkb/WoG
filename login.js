@@ -60,7 +60,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 localStorage.setItem('user', JSON.stringify(user_obj));
                 window.location.href = 'index.php';
             } else {
-                displayErrorMessage(response.statusText, 'signInModal');
+                displayErrorMessage(response.data.message, 'signInModal');
             }
         })
         .catch(function (error) {

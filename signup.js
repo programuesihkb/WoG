@@ -4,7 +4,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     event.preventDefault();
 
     var username = document.getElementById('username2').value;
-    var dateOfBirth = document.getElementById('dateOfBirth').value;
+    var dateOfBirth = document.getElementById('dateOfBirth').value ?? '';
     var email = document.getElementById('email').value;
     var password = document.getElementById('password2').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
@@ -31,6 +31,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         displayErrorMessage('Password must be between 8 and 20 characters');
         return;
     }
+    console.log("dateOfBirth:", dateOfBirth);
 
     var data = new URLSearchParams();
     data.append('username', username);
@@ -41,7 +42,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
     axios.post('signup.php', data)
         .then(function (response) {
-            if (response.status) {
+            if (response.data.success) {
                 const user_obj = {
                     user_name : username,
                     user_email : email,
@@ -50,7 +51,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
                 localStorage.setItem('user', JSON.stringify(user_obj));
                 window.location.href = 'index.php';
             } else {
-                displayErrorMessage(response.statusText, 'signUpModal');
+                displayErrorMessage(response.data.message, 'signUpModal');
             }
         })
         .catch(function (error) {
