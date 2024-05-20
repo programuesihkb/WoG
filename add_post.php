@@ -137,29 +137,37 @@
 <body>
     <div class="container">
         <div class="square image_holder" data-text="Image">
-            <input type="file" id="fileInput" style="display:none;" accept="image/*">
-            <button class="plus_button" onclick="addPostImage()"></button>
+            <form id="postForm" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="image" style="display:none;" accept="image/*">
+                <button type="button" class="plus_button" onclick="addPostImage()"></button>
+            </form>
         </div>
         <div class="postButton">
             <div class="square title_holder" data-text="Title">
-                <button class="plus_button" onclick="addPostTitle()"></button>
+                <button type="button" class="plus_button" onclick="addPostTitle()"></button>
             </div>
             <div class="square description_holder" data-text="Description">
-                <button class="plus_button" onclick="addPostDescription()"></button>
+                <button type="button" class="plus_button" onclick="addPostDescription()"></button>
             </div>
-            <button id="postBtn" onclick="addPost()">Posto!</button>
+            <button type="button" id="postBtn" onclick="addPost()">Posto!</button>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        let selectedFile = null;
+
         function addPostImage() {
             var fileInput = document.getElementById('fileInput');
-            var imageHolder = document.querySelector('.image_holder');
+            if (!fileInput) {
+                console.error("File input not found.");
+                return;
+            }
             
             fileInput.click();
 
             fileInput.addEventListener('change', function() {
-                var file = fileInput.files[0];
-                if (file) {
+                selectedFile = fileInput.files[0];
+                if (selectedFile) {
                     var reader = new FileReader();
                     reader.onload = function(event) {
                         var img = new Image();
@@ -173,23 +181,30 @@
                                 img.style.height = 'auto';
                             }
                         };
+                        var imageHolder = document.querySelector('.image_holder');
+                        if (!imageHolder) {
+                            console.error("Image holder not found.");
+                            return;
+                        }
                         imageHolder.setAttribute('data-text', '');
                         imageHolder.innerHTML = '';
                         imageHolder.appendChild(img);
                     };
-                    reader.readAsDataURL(file);
+                    reader.readAsDataURL(selectedFile);
                 }
             });
         }
+
         function addPostTitle() {
-            var descriptionHolder = document.querySelector('.title_holder');
-            descriptionHolder.setAttribute('data-text', '');
+            var titleHolder = document.querySelector('.title_holder');
+            titleHolder.setAttribute('data-text', '');
 
             var textField = document.createElement('textarea');
             textField.className = 'transparent_text_field';
-            descriptionHolder.innerHTML = '';
-            descriptionHolder.appendChild(textField);
+            titleHolder.innerHTML = '';
+            titleHolder.appendChild(textField);
         }
+
         function addPostDescription() {
             var descriptionHolder = document.querySelector('.description_holder');
             descriptionHolder.setAttribute('data-text', '');
@@ -199,41 +214,44 @@
             descriptionHolder.innerHTML = '';
             descriptionHolder.appendChild(textField);
         }
+
         function addPost() {
             try {
-                console.log('posting');
-                var imageHolder = document.querySelector('.image_holder');
-                var imageUrl = "";
-                if (imageHolder.children.length > 0 && imageHolder.children[0].tagName === "IMG") {
-                    imageUrl = imageHolder.children[0].src;
+                if (!selectedFile) {
+                    console.error("File input not found.");
+                    return;
                 }
-    
+
                 var descriptionHolder = document.querySelector('.description_holder');
-                var text = "";
-                if (descriptionHolder.children.length > 0 && descriptionHolder.children[0].tagName === "TEXTAREA") {
-                    text = descriptionHolder.children[0].value;
+                var description = "";
+                if (descriptionHolder && descriptionHolder.children.length > 0 && descriptionHolder.children[0].tagName === "TEXTAREA") {
+                    description = descriptionHolder.children[0].value;
                 }
-    
+
                 var titleHolder = document.querySelector('.title_holder');
                 var title = "";
-                if (titleHolder.children.length > 0 && titleHolder.children[0].tagName === "TEXTAREA") {
+                if (titleHolder && titleHolder.children.length > 0 && titleHolder.children[0].tagName === "TEXTAREA") {
                     title = titleHolder.children[0].value;
                 }
-                console.log('image  path: ', imageUrl, ' post title: ', title, ' post text: ', text);
+
                 const user_string = localStorage.getItem("user");
                 const user_obj = JSON.parse(user_string);
-                if(user_obj?.user_role === 'creator' && user_obj?.user_name) {
-                    var data = new URLSearchParams();
-                    data.append('imageUrl', imageUrl);
-                    data.append('description', text);
-                    data.append('title', title);
-                    data.append('userName', user_obj.user_name);
-                    axios.post('add_post_functions.php', data)
+
+                if (user_obj?.user_role === 'creator' && user_obj?.user_name) {
+                    var formData = new FormData();
+                    formData.append('description', description);
+                    formData.append('title', title);
+                    formData.append('userName', user_obj.user_name);
+                    if (selectedFile) {
+                        formData.append('image', selectedFile);
+                    }
+
+                    axios.post('add_post_functions.php', formData)
                     .then(function (response) {
-                        if (response.status) {
+                        if (response.data.success) {
                             window.location.href = 'index.php';
                         } else {
-                            console.log('error: 'response.message);
+                            console.log('error: ', response.data.message);
                         }
                     })
                     .catch(function (error) {
