@@ -1,0 +1,56 @@
+INSERT INTO Post (post_name, post_status, description, post_date, user_id)
+VALUES 
+('Ace Combat 04: Shattered Skies', 'published', 'A semi-realistic flight simulation developed by Namco for the PlayStation 2 video game console. It is the first in the Ace Combat series to be released for the PlayStation 2 and the fourth installment in the Ace Combat series.', '2001-02-08', 3),
+('Burnout 3: Takedown', 'published', 'Burnout 3: Takedown is a racing game developed by Criterion Games and published by Electronic Arts for PlayStation 2 and Xbox. It is the third game in Criterions Burnout series. The game was released in September 2004 and drew critical acclaim and a large fanbase. It is one of the highest rated racing games of all time, according to aggregator GameRankings', '2004-09-07', 3),
+('Call of Duty', 'published', 'Call of Duty: Finest Hour is a 2004 first-person shooter video game. It was released for the GameCube, PlayStation 2, and Xbox on November 16, 2004 in North America. It was the first console installment of Call of Duty, developed by Spark Unlimited and published by Activision. It was followed up by a sequel, Call of Duty 2: Big Red One, in 2005.', '2004-11-16', 3),
+('Dragon Ball Z: Budokai', 'published', 'Dragon Ball Z: Budokai, released as Dragon Ball Z in Japan, is a fighting game released for the PlayStation 2 on November 2, 2002, in Europe and on December 3, 2002, in North America', '2002-11-02', 3),
+('Enter the Matrix', 'published', 'Enter the Matrix is the first video game based on The Matrix series of films. Its story was concurrent with that of The Matrix Reloaded, and featured over an hour of original footage, directed by The Wachowskis and starring the cast of the film trilogy, produced exclusively for the game. It sold one million copies in its first eighteen days of release, 2.5 million over the first six weeks, and ultimately 5 million copies.', '2003-05-14', 3),
+('Final Fantasy X', 'published', 'Final Fantasy X is a role-playing video game developed and published by Square  as the tenth entry in the Final Fantasy series. Originally released in 2001 for Sonys PlayStation 2, the game was re-released as Final Fantasy X/X-2 HD Remaster for PlayStation 3 and PlayStation Vita in 2013, for PlayStation 4 in 2015 and for Microsoft Windows in 2016.', '2001-12-17', 3),
+('God of War', 'published', 'God of War is a third-person action-adventure video game developed by Santa Monica Studio and published by Sony Computer Entertainment. First released on March 22, 2005, for the PlayStation 2 console, it is the first installment in the series of the same name and the third chronologically. Loosely based on Greek mythology, it is set in ancient Greece with vengeance as its central motif.', '2005-03-22', 3),
+('Grand Theft Auto III', 'published', 'Grand Theft Auto III is an open world action-adventure video game developed by DMA Design and published by Rockstar Games. It was released on 22 October 2001 for the PlayStation 2. It is the fifth title in the Grand Theft Auto series, and the first main entry since 1999s Grand Theft Auto 2. Set within the fictional Liberty City, based on New York City, the game follows Claude after he is left for dead and quickly becomes entangled in a world of gangs, crime and corruption.', '2001-08-22', 3),
+('Harry Potter and the Chamber of Secrets', 'published', 'Harry Potter and the Chamber of Secrets is a 2002 action-adventure game published by Electronic Arts based on J.K. Rowlings novel Harry Potter and the Chamber of Secrets and the film of the same name. It was developed by both EAs internal development team and Eurocom for the PlayStation 2, Xbox, GameCube and Game Boy Advance systems.', '2002-11-14', 3),
+('Jak and Daxter: The Precursor Legacy', 'published', 'The game follows the protagonist, Jak, as he tries to help his friend Daxter after he transforms into an ottsel (a fictional hybrid of an otter and a weasel). With the help of Samos the Sage, the pair learn that they must save their world from the antagonists Gol and Maia, who plan to flood it with Dark Eco. The game offers a large range of missions and minigames as well as puzzles and platform elements that the player must complete to proceed.', '2001-12-03', 3);
+
+-- Insert data into the Multimedia table (assuming there are no multimedia files for now)
+INSERT INTO Multimedia (media_data, post_id)
+VALUES 
+('imagesForWebsite/1.jpg', 1),
+('imagesForWebsite/2.jpg', 2),
+('imagesForWebsite/3.jpg', 3),
+('imagesForWebsite/4.jpg', 4),
+('imagesForWebsite/5.jpg', 5),
+('imagesForWebsite/6.jpg', 6),
+('imagesForWebsite/7.jpg', 7),
+('imagesForWebsite/8.jpg', 8),
+('imagesForWebsite/9.jpg', 9),
+('imagesForWebsite/10.jpg',10);
+
+
+
+
+INSERT INTO Genre (genre_id, genre_name) VALUES
+(1, 'Flight Simulator'),
+(2, 'Racing'),
+(3, 'First-Person Shooter'),
+(4, 'Fighting'),
+(5, 'Action Adventure'),
+(6, 'Role-Playing Game'),
+(7, 'Action-Adventure'),
+(8, 'Third-Person Shooter');
+
+INSERT INTO Post_Genre (post_id, genre_id) VALUES
+(1, 1), -- Ace Combat 04: Shattered Skies - Flight Simulator
+(2, 2), -- Burnout 3: Takedown - Racing
+(3, 3), -- Call of Duty - FPS
+(4, 4), -- Dragon Ball Z: Budokai - Fighting
+(5, 5), -- Enter the Matrix - Action Adventure
+(6, 6), -- Final Fantasy X - RPG
+(7, 7), -- God of War - Action Adventure
+(8, 8), -- Grande Theft Auto III - TPS (Third-person shooter)
+(9, 7), -- Harry Potter and the Chamber of Secrets - Action Adventure
+(10, 7); -- Jak and Daxter: The Precursor Legacy - Action Adventure     
+
+Insert into role values (1, 'user'), (2, 'creator'), (3, 'admin');  
+
+//nje user e bejme creator per te shtuar,edituar,fshire poste
+insert into user_role(user_id,role_id) values(3,2);
